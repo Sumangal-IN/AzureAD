@@ -1,0 +1,40 @@
+plugins {
+	id 'org.springframework.boot' version '2.1.6.RELEASE'
+	id 'java'
+}
+
+apply plugin: 'io.spring.dependency-management'
+
+group = 'com.SpringBootAD'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '1.8'
+
+repositories {
+	mavenCentral()
+}
+
+ext {
+	set('azureVersion', "2.1.6")
+}
+
+dependencies {
+	
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'org.springframework.security:spring-security-test'
+
+	compile("org.springframework.boot:spring-boot-starter-security:2.1.1.RELEASE")
+    compile("org.springframework.security:spring-security-oauth2-client")
+    compile("org.springframework.security:spring-security-oauth2-jose")
+    compile("com.microsoft.azure:azure-active-directory-spring-boot-starter:2.1.0")
+    compile("com.microsoft.azure:adal4j:1.6.3") // azure-active-directory-spring-boot-starter:2.1.0 brings in 1.6.0 - testing to see if 1.6.3 makes a difference
+    compile("com.nimbusds:oauth2-oidc-sdk:5.64.4") // Adal4j 1.6.x requires 5.64 - spring boot / security depends on 6.x by default
+    
+}
+
+dependencyManagement {
+	imports {
+		mavenBom "com.microsoft.azure:azure-spring-boot-bom:${azureVersion}"
+	}
+}
