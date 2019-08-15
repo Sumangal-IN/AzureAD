@@ -18,8 +18,8 @@ public class OidcConfigPropertyBuilder {
 	@Value("${auth.azure.clientSecret}")
 	private String clientSecret;
 
-	@Value("${auth.azure.redirectURL}")
-	private String redirectURL;
+	@Value("${auth.azure.redirectUrlHost}")
+	private String redirectUrlHost;
 
 	@Value("${auth.azure.tenantID}")
 	private String tenantID;
@@ -32,21 +32,28 @@ public class OidcConfigPropertyBuilder {
 
 	public OidcConfigProperty build() {
 		return OidcConfigProperty.builder().clientID(oidcConfigProviderBuilder.clientID)
-				.clientSecret(oidcConfigProviderBuilder.clientSecret).redirectURL(oidcConfigProviderBuilder.redirectURL)
-				.userAuthorizationURL(UserAuthorizationURL.build(oidcConfigProviderBuilder.tenantID))
-				.accessTokenURL(AccessTokenURL.build(oidcConfigProviderBuilder.tenantID))
+				.clientSecret(oidcConfigProviderBuilder.clientSecret)
+				.redirectURL(redirectUrlBuilder.build(oidcConfigProviderBuilder.redirectUrlHost))
+				.userAuthorizationURL(UserAuthorizationUrlBuilder.build(oidcConfigProviderBuilder.tenantID))
+				.accessTokenURL(AccessTokenUrlBuilder.build(oidcConfigProviderBuilder.tenantID))
 				.scopes(Arrays.asList(oidcConfigProviderBuilder.scopes).stream().map(x -> x.toString())
 						.collect(Collectors.toList()))
 				.build();
 	}
 
-	static class UserAuthorizationURL {
+	static class redirectUrlBuilder {
+		public static String build(String redirectUrlHost) {
+			return redirectUrlHost.concat(ApplicationConstant.AUTH_CONTEXT_PATH_REPLY);
+		}
+	}
+
+	static class UserAuthorizationUrlBuilder {
 		public static String build(String tenantID) {
 			return format(ApplicationConstant.AUTHORIZATION_URL, tenantID);
 		}
 	}
 
-	static class AccessTokenURL {
+	static class AccessTokenUrlBuilder {
 		public static String build(String tenantID) {
 			return format(ApplicationConstant.ACCESS_TOKEN_URL, tenantID);
 		}
