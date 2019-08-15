@@ -15,10 +15,10 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class CustomAuthentication implements Authentication {
 
-	private static final long serialVersionUID = 7952604359296099311L;
+	private static final long serialVersionUID = 1L;
 
 	private JsonElement claimsData = null;
-	private boolean authenticated = ApplicationConstant.TRUE;
+	private boolean authenticated;
 
 	public CustomAuthentication(JsonElement claimsData) {
 		this(claimsData, ApplicationConstant.TRUE);
