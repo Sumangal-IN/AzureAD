@@ -3,7 +3,6 @@ package com.SpringBootAD.SpringBootADConnection.security;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -11,21 +10,23 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import com.google.gson.JsonElement;
 
+import lombok.AllArgsConstructor;
+
+@AllArgsConstructor
 public class CustomAuthentication implements Authentication {
 
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 7952604359296099311L;
 
-	JsonElement claimsData = null;
-	boolean authenticated;
+	private JsonElement claimsData = null;
+	private boolean authenticated = ApplicationConstant.TRUE;
 
-	public CustomAuthentication(JsonElement claimsData, boolean authenticated) {
-		this.claimsData = claimsData;
-		this.authenticated = authenticated;
+	public CustomAuthentication(JsonElement claimsData) {
+		this(claimsData, ApplicationConstant.TRUE);
 	}
 
 	@Override
 	public String getName() {
-		return this.claimsData.getAsJsonObject().get("name").getAsString();
+		return this.claimsData.getAsJsonObject().get("aud").getAsString();
 	}
 
 	@Override
@@ -48,7 +49,7 @@ public class CustomAuthentication implements Authentication {
 
 	@Override
 	public Object getPrincipal() {
-		return this.claimsData.getAsJsonObject().get("preferred_username").getAsString();
+		return this.claimsData.getAsJsonObject().get("aud").getAsString();
 	}
 
 	@Override

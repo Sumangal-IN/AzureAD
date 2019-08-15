@@ -1,0 +1,8 @@
+auth:
+  azure:
+    clientID: 427752a8-ec94-4994-89fd-3c1bad7d45c9
+    clientSecret: "[5jC0zTtIzbvIAM53]S+rKkzkOH=v7:2"
+    redirectURL: http://localhost:8080/mylogin
+    tenantID: 8b7425f8-ed1a-4703-b748-5d8aa9d83471
+    scopes: openid
+    
