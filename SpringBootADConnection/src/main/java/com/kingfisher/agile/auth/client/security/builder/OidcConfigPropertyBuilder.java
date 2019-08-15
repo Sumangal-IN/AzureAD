@@ -1,4 +1,4 @@
-package com.SpringBootAD.SpringBootADConnection.security;
+package com.kingfisher.agile.auth.client.security.builder;
 
 import static java.lang.String.format;
 
@@ -8,6 +8,9 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+
+import com.kingfisher.agile.auth.client.constant.ApplicationConstant;
+import com.kingfisher.agile.auth.client.security.model.OidcProperty;
 
 @Component
 public class OidcConfigPropertyBuilder {
@@ -30,8 +33,8 @@ public class OidcConfigPropertyBuilder {
 	@Autowired
 	OidcConfigPropertyBuilder oidcConfigProviderBuilder;
 
-	public OidcConfigProperty build() {
-		return OidcConfigProperty.builder().clientID(oidcConfigProviderBuilder.clientID)
+	public OidcProperty build() {
+		return OidcProperty.builder().clientID(oidcConfigProviderBuilder.clientID)
 				.clientSecret(oidcConfigProviderBuilder.clientSecret)
 				.redirectURL(redirectUrlBuilder.build(oidcConfigProviderBuilder.redirectUrlHost))
 				.userAuthorizationURL(UserAuthorizationUrlBuilder.build(oidcConfigProviderBuilder.tenantID))

@@ -1,4 +1,4 @@
-package com.SpringBootAD.SpringBootADConnection.security;
+package com.kingfisher.agile.auth.client.security.model;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -9,6 +9,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import com.google.gson.JsonElement;
+import com.kingfisher.agile.auth.client.constant.ApplicationConstant;
 
 import lombok.AllArgsConstructor;
 

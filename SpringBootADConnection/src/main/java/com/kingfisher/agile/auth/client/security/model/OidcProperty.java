@@ -1,4 +1,4 @@
-package com.SpringBootAD.SpringBootADConnection.security;
+package com.kingfisher.agile.auth.client.security.model;
 
 import java.util.List;
 
@@ -7,7 +7,7 @@ import lombok.Value;
 
 @Builder
 @Value
-public class OidcConfigProperty {
+public class OidcProperty {
 
 	private String clientID;
 

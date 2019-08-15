@@ -1,4 +1,4 @@
-package com.SpringBootAD.SpringBootADConnection.security;
+package com.kingfisher.agile.auth.client.constant;
 
 public class ApplicationConstant {
 

@@ -1,4 +1,4 @@
-package com.SpringBootAD.SpringBootADConnection.security;
+package com.kingfisher.agile.auth.client.security.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -7,6 +7,8 @@ import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.security.oauth2.client.OAuth2ClientContext;
 import org.springframework.security.oauth2.client.OAuth2RestTemplate;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableOAuth2Client;
+
+import com.kingfisher.agile.auth.client.security.builder.OAuth2ProtectedResourceDetailsBuilder;
 
 @Configuration
 @EnableOAuth2Client

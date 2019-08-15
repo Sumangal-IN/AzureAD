@@ -1,4 +1,4 @@
-package com.SpringBootAD.SpringBootADConnection;
+package com.kingfisher.agile.auth.client;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

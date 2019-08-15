@@ -1,4 +1,4 @@
-package com.SpringBootAD.SpringBootADConnection.security;
+package com.kingfisher.agile.auth.client.security.filter;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -17,6 +17,8 @@ import org.springframework.security.web.authentication.AbstractAuthenticationPro
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
+import com.kingfisher.agile.auth.client.constant.ApplicationConstant;
+import com.kingfisher.agile.auth.client.security.model.CustomAuthentication;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;

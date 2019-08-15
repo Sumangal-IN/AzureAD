@@ -1,4 +1,4 @@
-package com.SpringBootAD.SpringBootADConnection.controller;
+package com.kingfisher.agile.auth.client.controller;
 
 import java.util.Base64;
 import org.springframework.http.HttpHeaders;
@@ -15,7 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @Slf4j
-public class HelloController {
+public class OidcAuthController {
 
 	@GetMapping("/login/{meta}")
 	public final ResponseEntity<String> authenticate(@PathVariable("meta") String meta) {
