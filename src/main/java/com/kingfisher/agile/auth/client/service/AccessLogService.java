@@ -25,6 +25,8 @@ public class AccessLogService {
 	}
 
 	public void logRequested(AccessLog accessLog) {
+		if (accessLogRepository.findById(accessLog.getJSessionID()).isPresent())
+			return;
 		accessLogRepository.save(accessLog);
 	}
 
