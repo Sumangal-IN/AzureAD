@@ -23,10 +23,11 @@ public class DataBuildersTest {
 	}
 
 	@Test
-	public void testBuildResponseData()
-			throws JsonGenerationException, JsonMappingException, IOException {
-		System.out.println(buildResponseData("a", "8058f7e8-bc6e-429e-8a81-8e9d5124c951",
-				Arrays.asList(new String[] { "ROLE_ADMIN" })));
+	public void testBuildResponseData() throws JsonGenerationException, JsonMappingException, IOException {
+		assertEquals(
+				"eyJ1c2VybmFtZSI6IjgwNThmN2U4LWJjNmUtNDI5ZS04YTgxLThlOWQ1MTI0Yzk1MSIsInJvbGVzIjpbIlJPTEVfQURNSU4iXSwianNlc3Npb25JRCI6ImEifQ==",
+				buildResponseData("a", "8058f7e8-bc6e-429e-8a81-8e9d5124c951",
+						Arrays.asList(new String[] { "ROLE_ADMIN" })));
 	}
 
 }
