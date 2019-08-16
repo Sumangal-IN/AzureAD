@@ -1,7 +1,7 @@
 package com.kingfisher.agile.auth.client.filter;
 
 import static com.kingfisher.agile.auth.client.builder.DataBuilders.buildAccessLog;
-import static com.kingfisher.agile.auth.client.builder.DataBuilders.buildMetaData;
+import static com.kingfisher.agile.auth.client.builder.DataBuilders.buildRequestData;
 import static com.kingfisher.agile.auth.client.builder.DataBuilders.extractMeta;
 
 import java.io.IOException;
@@ -37,7 +37,7 @@ public class LogRequestFilter implements Filter {
 		log.info("request URI: {}", requestURI);
 		if (isLoginRequest(requestURI)) {
 			log.info("loging request ...");
-			accessLogService.logRequested(buildAccessLog(buildMetaData(extractMeta(requestURI))));
+			accessLogService.logRequested(buildAccessLog(buildRequestData(extractMeta(requestURI))));
 			log.info("request logged ...");
 		}
 		chain.doFilter(request, response);

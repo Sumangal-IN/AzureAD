@@ -11,7 +11,7 @@ import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
 import com.kingfisher.agile.auth.client.constant.ApplicationConstant;
 import com.kingfisher.agile.auth.client.model.AccessLog;
-import com.kingfisher.agile.auth.client.model.MetaData;
+import com.kingfisher.agile.auth.client.model.RequestData;
 import com.kingfisher.agile.auth.client.repository.AccessLogRepository;
 
 @Service
@@ -30,8 +30,8 @@ public class AccessLogService {
 		accessLogRepository.save(accessLog);
 	}
 
-	public void logSucceeded(MetaData metaData) {
-		accessLogRepository.findById(metaData.getJSessionID()).ifPresent(x -> {
+	public void logSucceeded(RequestData requestData) {
+		accessLogRepository.findById(requestData.getJSessionID()).ifPresent(x -> {
 			x.setSuccess(ApplicationConstant.TRUE);
 			x.setSucceededOn(new Date());
 			accessLogRepository.save(x);

@@ -28,4 +28,6 @@ public class ApplicationConstant {
 	public static final String CONTEXT_PATH_AUTH_RESOURCES = "resources";
 	public static final String CONTEXT_PATH_AUTH_ACTUATOR = "actuator";
 
+	public static final String HTTP_HEADER_LOCATION = "location";
+
 }

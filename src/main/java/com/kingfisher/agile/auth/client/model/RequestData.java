@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class MetaData {
+public class RequestData {
 	
 	@JsonProperty("jSessionID")
 	String jSessionID;
