@@ -15,6 +15,7 @@ import org.springframework.security.web.authentication.preauth.AbstractPreAuthen
 import com.kingfisher.agile.auth.client.constant.ApplicationConstant;
 import com.kingfisher.agile.auth.client.filter.LogRequestFilter;
 import com.kingfisher.agile.auth.client.filter.OpenIdConnectFilter;
+import com.kingfisher.agile.auth.client.service.AccessLogService;
 
 @Configuration
 @EnableWebSecurity
@@ -23,14 +24,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	private OAuth2RestTemplate restTemplate;
 
+	@Autowired
+	private AccessLogService accessLogService;
+
 	@Override
 	public void configure(WebSecurity web) throws Exception {
 		web.ignoring().antMatchers(ApplicationConstant.CONTEXT_PATH_SEPARATOR
 				.concat(ApplicationConstant.CONTEXT_PATH_AUTH_RESOURCES)
-				.concat(ApplicationConstant.CONTEXT_PATH_SEPARATOR).concat(ApplicationConstant.CONTEXT_PATH_ALL));
-		web.ignoring().antMatchers(ApplicationConstant.CONTEXT_PATH_SEPARATOR
-				.concat(ApplicationConstant.CONTEXT_PATH_AUTH_ACTUATOR)
-				.concat(ApplicationConstant.CONTEXT_PATH_SEPARATOR).concat(ApplicationConstant.CONTEXT_PATH_ALL));
+				.concat(ApplicationConstant.CONTEXT_PATH_SEPARATOR).concat(ApplicationConstant.CONTEXT_PATH_MULTI_VAR));
+		web.ignoring()
+				.antMatchers(ApplicationConstant.CONTEXT_PATH_SEPARATOR
+						.concat(ApplicationConstant.CONTEXT_PATH_AUTH_ACTUATOR)
+						.concat(ApplicationConstant.CONTEXT_PATH_SEPARATOR)
+						.concat(ApplicationConstant.CONTEXT_PATH_SINGLE_VAR));
 	}
 
 	@Bean
@@ -43,7 +49,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.addFilterBefore(new LogRequestFilter(), AbstractPreAuthenticatedProcessingFilter.class);
+		http.addFilterBefore(new LogRequestFilter(accessLogService), AbstractPreAuthenticatedProcessingFilter.class);
 		http.addFilterAfter(new OAuth2ClientContextFilter(), AbstractPreAuthenticatedProcessingFilter.class)
 				.addFilterAfter(myFilter(), OAuth2ClientContextFilter.class).httpBasic()
 				.authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint(

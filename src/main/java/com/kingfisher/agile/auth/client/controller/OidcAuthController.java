@@ -1,11 +1,15 @@
 package com.kingfisher.agile.auth.client.controller;
 
+import java.io.IOException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.kingfisher.agile.auth.client.constant.ApplicationConstant;
 import com.kingfisher.agile.auth.client.service.OidcAuthenticationService;
 
@@ -19,8 +23,9 @@ public class OidcAuthController {
 			+ ApplicationConstant.CONTEXT_PATH_SEPARATOR + ApplicationConstant.CONTEXT_PATH_VAR_BRACKET_OPEN
 			+ ApplicationConstant.CONTEXT_PATH_VAR_META + ApplicationConstant.CONTEXT_PATH_VAR_BRACKET_CLOSE)
 	public final ResponseEntity<String> authenticate(
-			@PathVariable(ApplicationConstant.CONTEXT_PATH_VAR_META) String httpRequestMeta) {
-		return oidcAuthenticationService.httpResponse(httpRequestMeta);
+			@PathVariable(ApplicationConstant.CONTEXT_PATH_VAR_META) String httpRequestMeta)
+			throws JsonParseException, JsonMappingException, IOException {
+		return oidcAuthenticationService.generateSuccessResponse(httpRequestMeta);
 	}
 
 }

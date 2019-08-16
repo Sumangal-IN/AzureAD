@@ -7,9 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import com.kingfisher.agile.auth.client.builder.OidcUrlBuilders.AccessTokenUrlBuilder;
-import com.kingfisher.agile.auth.client.builder.OidcUrlBuilders.RedirectUrlBuilder;
-import com.kingfisher.agile.auth.client.builder.OidcUrlBuilders.UserAuthorizationUrlBuilder;
+import static com.kingfisher.agile.auth.client.builder.UrlBuilders.buildAccessTokenURL;
+import static com.kingfisher.agile.auth.client.builder.UrlBuilders.buildRedirectURL;
+import static com.kingfisher.agile.auth.client.builder.UrlBuilders.buildUserAuthorizationURL;
 import com.kingfisher.agile.auth.client.model.OidcProperty;;
 
 @Component
@@ -36,9 +36,9 @@ public class OidcPropertyBuilder {
 	public OidcProperty build() {
 		return OidcProperty.builder().clientID(oidcConfigProviderBuilder.clientID)
 				.clientSecret(oidcConfigProviderBuilder.clientSecret)
-				.redirectURL(RedirectUrlBuilder.build(oidcConfigProviderBuilder.redirectUrlHost))
-				.userAuthorizationURL(UserAuthorizationUrlBuilder.build(oidcConfigProviderBuilder.tenantID))
-				.accessTokenURL(AccessTokenUrlBuilder.build(oidcConfigProviderBuilder.tenantID))
+				.redirectURL(buildRedirectURL(oidcConfigProviderBuilder.redirectUrlHost))
+				.userAuthorizationURL(buildUserAuthorizationURL(oidcConfigProviderBuilder.tenantID))
+				.accessTokenURL(buildAccessTokenURL(oidcConfigProviderBuilder.tenantID))
 				.scopes(Arrays.asList(oidcConfigProviderBuilder.scopes).stream().map(x -> x.toString())
 						.collect(Collectors.toList()))
 				.build();

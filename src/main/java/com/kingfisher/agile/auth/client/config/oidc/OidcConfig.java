@@ -16,7 +16,7 @@ public class OidcConfig {
 
 	@Autowired
 	OAuth2ProtectedResourceDetailsBuilder oAuth2ProtectedResourceDetailsBuilder;
-
+	
 	@Bean
 	public OAuth2RestTemplate oidcTemplate(final OAuth2ClientContext clientContext) {
 		final OAuth2RestTemplate template = new OAuth2RestTemplate(oAuth2ProtectedResourceDetailsBuilder.build(),

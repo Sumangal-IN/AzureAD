@@ -5,3 +5,20 @@ auth:
     redirectUrlHost: http://localhost:8080
     tenantID: 7bf48208-772c-4374-b406-73e86f6127d3
     scopes: openid
+    
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/AzureAuthClient
+    username: postgres
+    password: root
+  jpa:
+    database: POSTGRESQL
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        jdbc:
+          lob:
+            non_contextual_creation: true
