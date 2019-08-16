@@ -1,4 +1,4 @@
-package com.kingfisher.agile.auth.client.security.builder;
+package com.kingfisher.agile.auth.client.builder;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.oauth2.client.resource.OAuth2ProtectedResourceDetails;
@@ -6,13 +6,13 @@ import org.springframework.security.oauth2.client.token.grant.code.Authorization
 import org.springframework.stereotype.Component;
 
 import com.kingfisher.agile.auth.client.constant.ApplicationConstant;
-import com.kingfisher.agile.auth.client.security.model.OidcProperty;
+import com.kingfisher.agile.auth.client.model.OidcProperty;
 
 @Component
 public class OAuth2ProtectedResourceDetailsBuilder {
 
 	@Autowired
-	OidcConfigPropertyBuilder oidcConfigPropertyBuilder;
+	OidcPropertyBuilder oidcConfigPropertyBuilder;
 
 	public OAuth2ProtectedResourceDetails build() {
 		final AuthorizationCodeResourceDetails authorizationCodeResourceDetails = new AuthorizationCodeResourceDetails();
@@ -22,7 +22,6 @@ public class OAuth2ProtectedResourceDetailsBuilder {
 
 	private static void enrich(final AuthorizationCodeResourceDetails authorizationCodeResourceDetails,
 			final OidcProperty oidcConfigProperty) {
-		System.out.println(oidcConfigProperty);
 		authorizationCodeResourceDetails.setClientId(oidcConfigProperty.getClientID());
 		authorizationCodeResourceDetails.setClientSecret(oidcConfigProperty.getClientSecret());
 		authorizationCodeResourceDetails.setAccessTokenUri(oidcConfigProperty.getAccessTokenURL());

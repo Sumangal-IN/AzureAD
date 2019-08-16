@@ -1,0 +1,7 @@
+auth:
+  azure:
+    clientID: 8058f7e8-bc6e-429e-8a81-8e9d5124c951
+    clientSecret: ":x]66a3w_/5IBHrDi.jHGzP3bRn+49-:"
+    redirectUrlHost: http://localhost:8080
+    tenantID: 7bf48208-772c-4374-b406-73e86f6127d3
+    scopes: openid

@@ -1,4 +1,4 @@
-package com.kingfisher.agile.auth.client.security.config;
+package com.kingfisher.agile.auth.client.config.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -12,36 +12,43 @@ import org.springframework.security.oauth2.client.filter.OAuth2ClientContextFilt
 import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
 import org.springframework.security.web.authentication.preauth.AbstractPreAuthenticatedProcessingFilter;
 
-import com.kingfisher.agile.auth.client.security.filter.OpenIdConnectFilter;
+import com.kingfisher.agile.auth.client.constant.ApplicationConstant;
+import com.kingfisher.agile.auth.client.filter.LogRequestFilter;
+import com.kingfisher.agile.auth.client.filter.OpenIdConnectFilter;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
 	@Autowired
 	private OAuth2RestTemplate restTemplate;
 
 	@Override
 	public void configure(WebSecurity web) throws Exception {
-		web.ignoring().antMatchers("/resources/**");
+		web.ignoring().antMatchers(ApplicationConstant.CONTEXT_PATH_SEPARATOR
+				.concat(ApplicationConstant.CONTEXT_PATH_AUTH_RESOURCES)
+				.concat(ApplicationConstant.CONTEXT_PATH_SEPARATOR).concat(ApplicationConstant.CONTEXT_PATH_ALL));
+		web.ignoring().antMatchers(ApplicationConstant.CONTEXT_PATH_SEPARATOR
+				.concat(ApplicationConstant.CONTEXT_PATH_AUTH_ACTUATOR)
+				.concat(ApplicationConstant.CONTEXT_PATH_SEPARATOR).concat(ApplicationConstant.CONTEXT_PATH_ALL));
 	}
 
 	@Bean
 	public OpenIdConnectFilter myFilter() {
-		final OpenIdConnectFilter filter = new OpenIdConnectFilter("/mylogin");
+		final OpenIdConnectFilter filter = new OpenIdConnectFilter(
+				ApplicationConstant.CONTEXT_PATH_SEPARATOR + ApplicationConstant.CONTEXT_PATH_AUTH_REPLY);
 		filter.setRestTemplate(restTemplate);
 		return filter;
 	}
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		// @formatter:off
+		http.addFilterBefore(new LogRequestFilter(), AbstractPreAuthenticatedProcessingFilter.class);
 		http.addFilterAfter(new OAuth2ClientContextFilter(), AbstractPreAuthenticatedProcessingFilter.class)
 				.addFilterAfter(myFilter(), OAuth2ClientContextFilter.class).httpBasic()
-				.authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint("/mylogin")).and()
-				.authorizeRequests()
-				// .antMatchers("/","/index*").permitAll()
-				.anyRequest().authenticated();
-
-		// @formatter:on
+				.authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint(
+						ApplicationConstant.CONTEXT_PATH_SEPARATOR + ApplicationConstant.CONTEXT_PATH_AUTH_REPLY))
+				.and().authorizeRequests().anyRequest().authenticated();
 	}
+
 }

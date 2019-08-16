@@ -1,4 +1,4 @@
-package com.kingfisher.agile.auth.client.security.model;
+package com.kingfisher.agile.auth.client.model;
 
 import java.util.List;
 

@@ -7,8 +7,8 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
 @SpringBootApplication
 public class SpringBootAdConnectionApplication extends SpringBootServletInitializer {
 
-	public static void main(String[] args) {
-		SpringApplication.run(SpringBootAdConnectionApplication.class, args);
+	public static void main(String[] args) {		
+		SpringApplication.run(SpringBootAdConnectionApplication.class, args);		
 	}
 
 }
